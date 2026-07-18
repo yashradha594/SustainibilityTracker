@@ -14,28 +14,46 @@ export const AuthProvider = ({ children }) => {
     }
     setLoading(false);
   }, []);
+const login = async (email, password) => {
+  try {
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/auth/login`,
+      { email, password },
+      { withCredentials: true } // ✅ important for cookies/JWT
+    );
 
-  const login = async (email, password) => {
-    try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      setUser(data);
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      return { success: true };
-    } catch (error) {
-      return { success: false, message: error.response?.data?.message || 'Login failed' };
-    }
-  };
+    setUser(data);
+    localStorage.setItem("userInfo", JSON.stringify(data));
 
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || error.message || "Login failed",
+    };
+  }
+};
   const register = async (name, email, password) => {
-    try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
-      setUser(data);
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      return { success: true };
-    } catch (error) {
-      return { success: false, message: error.response?.data?.message || 'Registration failed' };
-    }
-  };
+  try {
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/auth/register`,
+      { name, email, password },
+      { withCredentials: true } // ✅ important
+    );
+
+    setUser(data);
+    localStorage.setItem("userInfo", JSON.stringify(data));
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || error.message || "Registration failed",
+    };
+  }
+};
 
   const logout = () => {
     setUser(null);
