@@ -41,9 +41,14 @@ const ActivityTracker = () => {
   useEffect(() => {
     const fetchToday = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/activity/today', {
-          headers: { Authorization: `Bearer ${user.token}` }
-        });
+       const res = await axios.get(
+  `${import.meta.env.VITE_API_URL}/api/activity/today`,
+  {
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  }
+);
         if (res.data) {
           setIsEditMode(true);
           const d = res.data;

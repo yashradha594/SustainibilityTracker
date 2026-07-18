@@ -19,7 +19,7 @@ const login = async (email, password) => {
     const { data } = await axios.post(
       `${import.meta.env.VITE_API_URL}/api/auth/login`,
       { email, password },
-      { withCredentials: true } // ✅ important for cookies/JWT
+      
     );
 
     setUser(data);
@@ -39,7 +39,7 @@ const login = async (email, password) => {
     const { data } = await axios.post(
       `${import.meta.env.VITE_API_URL}/api/auth/register`,
       { name, email, password },
-      { withCredentials: true } // ✅ important
+      
     );
 
     setUser(data);
