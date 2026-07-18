@@ -95,9 +95,13 @@ const ActivityTracker = () => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/activity', payload, {
-        headers: { Authorization: `Bearer ${user.token}` }
-      });
+   await axios.post(
+   `${import.meta.env.VITE_API_URL}/api/activity`,
+    payload,
+  {
+    headers: { Authorization: `Bearer ${user.token}` }
+  }
+);
       setSuccess(true);
       setTimeout(() => {
         navigate('/');
